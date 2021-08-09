@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "437959536634",
+    "project_id": "denic-app",
+    "storage_bucket": "denic-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:437959536634:android:020189b5957932d1307e43",
+        "android_client_info": {
+          "package_name": "com.example.flutter_denic_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "437959536634-vk5v9vt1121u00ovarp2gtfabrvjopbc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD5RskcMM-7on4BNkdtWu19JarBiiFSr-M"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "437959536634-vk5v9vt1121u00ovarp2gtfabrvjopbc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
