@@ -1,9 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dental_clinic_app/screen/registerscreen.dart';
+import 'package:flutter_dental_clinic_app/screen/forgot_pass_screen.dart';
+import 'package:flutter_dental_clinic_app/screen/register_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+import 'package:line_awesome_icons/line_awesome_icons.dart';
 
-import 'homescreen.dart';
+import 'bottom_navigator_screen.dart';
 
 class Login extends StatefulWidget {
   const Login({Key? key}) : super(key: key);
@@ -18,7 +22,7 @@ class _LoginState extends State<Login> {
   TextEditingController _passController = new TextEditingController();
   String? email;
   String? pass;
-  final _auth = FirebaseAuth.instance;
+  late final _auth = FirebaseAuth.instance;
   bool visibility_state = true;
 
   tapLoginButton() async {
@@ -33,16 +37,19 @@ class _LoginState extends State<Login> {
         barrierDismissible: false,
       );
     }
-    UserCredential user =
-        await _auth.signInWithEmailAndPassword(email: email!, password: pass!);
-    Navigator.pop(context);
-    Navigator.of(context).push(MaterialPageRoute(builder: (context) => Home()));
+      UserCredential user = await _auth.signInWithEmailAndPassword(
+          email: email!, password: pass!);
+      Navigator.pop(context);
+      Navigator.of(context)
+          .push(MaterialPageRoute(builder: (context) => Bottom_Navigator()));
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        automaticallyImplyLeading: false,
         elevation: 0,
         backgroundColor: Colors.white,
       ),
@@ -141,33 +148,40 @@ class _LoginState extends State<Login> {
                               fontSize: 18,
                             ),
                             decoration: InputDecoration(
-                              hintText: "Enter your password",
-                              hintStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                              ),
-                              labelText: "Password",
-                              prefixIcon: Container(
-                                width: 50,
-                                child: new Image.asset('images/pass_icon.png'),
-                              ),
-                              border: OutlineInputBorder(
-                                borderSide:
-                                    BorderSide(color: Colors.black, width: 1),
-                                borderRadius:
-                                    BorderRadius.all(Radius.circular(6)),
-                              ),
-                              labelStyle: TextStyle(
-                                color: Colors.black,
-                                fontSize: 15,
-                              ),
-                              suffixIcon: IconButton(onPressed: () async {
-                                setState(() {
-                                  visibility_state == true ? visibility_state = false : visibility_state = true;
-                                });
-                              },
-                              icon: Icon(Icons.visibility,color: Colors.black,),)
-                            ),
+                                hintText: "Enter your password",
+                                hintStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                ),
+                                labelText: "Password",
+                                prefixIcon: Container(
+                                  width: 50,
+                                  child:
+                                      new Image.asset('images/pass_icon.png'),
+                                ),
+                                border: OutlineInputBorder(
+                                  borderSide:
+                                      BorderSide(color: Colors.black, width: 1),
+                                  borderRadius:
+                                      BorderRadius.all(Radius.circular(6)),
+                                ),
+                                labelStyle: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 15,
+                                ),
+                                suffixIcon: IconButton(
+                                  onPressed: () async {
+                                    setState(() {
+                                      visibility_state == true
+                                          ? visibility_state = false
+                                          : visibility_state = true;
+                                    });
+                                  },
+                                  icon: Icon(
+                                    Icons.visibility,
+                                    color: Colors.black,
+                                  ),
+                                )),
                           ),
                         ]),
                   ),
@@ -177,9 +191,11 @@ class _LoginState extends State<Login> {
                     alignment: AlignmentDirectional.centerEnd,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                      child: Text(
+                      child: InkWell(child: Text(
                         'Forgot password?',
                         style: TextStyle(fontSize: 15, color: Colors.blue),
+                      ),
+                      onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ForgotPass())),
                       ),
                     ),
                   ),
@@ -205,7 +221,7 @@ class _LoginState extends State<Login> {
                     ),
                   ),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 15, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 40, 0, 20),
                     child: RichText(
                       text: TextSpan(
                           text: "New user?",
@@ -223,10 +239,58 @@ class _LoginState extends State<Login> {
                           ]),
                     ),
                   ),
+                  Row(children: <Widget>[
+                    Expanded(
+                      child: Divider(
+                        color: Colors.black87,
+                      ),
+                    ),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Text(" OR "),
+                    SizedBox(
+                      width: 20,
+                    ),
+                    Expanded(child: Divider(color: Colors.black87)),
+                  ]),
                   Padding(
-                    padding: const EdgeInsets.fromLTRB(0, 10, 0, 0),
+                    padding: const EdgeInsets.fromLTRB(0, 20, 0, 0),
                     child: Container(
-                      child: Row(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Container(
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.black, width: 1),
+                                  shape: BoxShape.circle),
+                              child: GestureDetector(
+                                child: Icon(
+                                  Icons.facebook,
+                                  color: Colors.blue,
+                                  size: 62,
+                                ),
+                                onTap: () => print(''),
+                              )),
+                          SizedBox(
+                            width: 20,
+                          ),
+                          Container(
+                              padding: EdgeInsets.all(5),
+                              decoration: BoxDecoration(
+                                  border:
+                                      Border.all(color: Colors.black, width: 1),
+                                  shape: BoxShape.circle),
+                              child: GestureDetector(
+                                child: Image.asset(
+                                  'images/google_icon.png',
+                                  fit: BoxFit.contain,
+                                ),
+                                onTap: () => print(''),
+                              )),
+                        ],
+                      ),
                     ),
                   ),
                 ],

@@ -1,6 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dental_clinic_app/screen/loginscreen.dart';
+import 'package:flutter_dental_clinic_app/screen/login_screen.dart';
 
 class Register extends StatefulWidget {
   const Register({Key? key}) : super(key: key);
@@ -325,7 +325,7 @@ class _RegisterState extends State<Register> {
                     child: ElevatedButton(
                         onPressed: () => tapRegisterButton(),
                         child: Text(
-                          'Sign in',
+                          'Sign up',
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.bold,
