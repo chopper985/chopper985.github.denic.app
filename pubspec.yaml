@@ -33,6 +33,9 @@ dependencies:
   intl: ^0.17.0
   firebase_auth: ^2.0.0
   google_sign_in: ^4.5.3
+  fluttertoast: ^8.0.8
+  firebase_messaging: ^10.0.4
+
 
 
 dev_dependencies:
@@ -43,7 +46,12 @@ dev_dependencies:
   line_awesome_icons: ^1.0.4+2
   flutter_screenutil: ^5.0.0+2
   animated_theme_switcher: ^2.0.1
+  flutter_launcher_icons: "^0.9.1"
 
+flutter_icons:
+  android: true
+  ios: true
+  image_path: "images/splash.png"
 
 flutter_native_splash:
   color: "#ffffff"

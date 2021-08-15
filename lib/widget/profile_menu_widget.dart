@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dental_clinic_app/screen/login_screen.dart';
-import 'package:flutter_dental_clinic_app/screen/text.dart';
+import 'package:flutter_dental_clinic_app/screen/inforPersonal_screen.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 
 class ProfieMenu extends StatefulWidget {
   final IconData iconProfile;
@@ -19,23 +20,53 @@ class ProfieMenu extends StatefulWidget {
 }
 
 class _ProfieMenuState extends State<ProfieMenu> {
-    Future<Login> _signOut() async {
-    // final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
-    await FirebaseAuth.instance.signOut();
-    Navigator.of(context).pushAndRemoveUntil(
-        MaterialPageRoute(
-          builder: (context) => Login(),
+  final _googleSignIn = new GoogleSignIn();
+  bool check = false;
+
+  Future<void> _signOut() async {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) => AlertDialog(
+        title: Text(
+          'Xác nhận',
+          style: TextStyle(color: Colors.black),
         ),
-        (route) => false);
-    return Login();
+        content: Text('Bạn có thực sự muốn đăng xuất không?'),
+        actions: <Widget>[
+          TextButton(
+            onPressed: () => Navigator.pop(context, 'Cancel'),
+            child: const Text('Không'),
+          ),
+          TextButton(
+            onPressed: () async {
+              await FirebaseAuth.instance.signOut();
+              await _googleSignIn.signOut();
+              Navigator.of(context).pushAndRemoveUntil(
+                  MaterialPageRoute(
+                    builder: (context) => Login(),
+                  ),
+                  (route) => false);
+            },
+            child: const Text('Có'),
+          ),
+        ],
+      ),
+      barrierColor: Colors.grey.shade100,
+      barrierDismissible: false,
+    );
+    // final FacebookLoginResult result = await facebookSignIn.logIn(['email']);
   }
+
+  Future<void> _layoutItem() async {
+    Navigator.of(context)
+        .push(MaterialPageRoute(builder: (context) => widget.layout));
+  }
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => widget.titleProfile == 'Đăng xuất'
-          ? _signOut()
-          : Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => widget.layout)),
+      onTap: () =>
+          widget.titleProfile == 'Đăng xuất' ? _signOut() : _layoutItem(),
       child: Ink(
         height: 70,
         padding: EdgeInsets.all(12),

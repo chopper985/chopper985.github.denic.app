@@ -1,9 +1,14 @@
+import 'dart:math';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dental_clinic_app/controller/sign_in_google.dart';
 import 'package:flutter_dental_clinic_app/screen/forgot_pass_screen.dart';
+import 'package:flutter_dental_clinic_app/screen/home_screen.dart';
 import 'package:flutter_dental_clinic_app/screen/register_screen.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
@@ -24,6 +29,7 @@ class _LoginState extends State<Login> {
   String? pass;
   late final _auth = FirebaseAuth.instance;
   bool visibility_state = true;
+  bool _isSigningIn = false;
 
   tapLoginButton() async {
     if (_formkey.currentState!.validate()) {
@@ -37,12 +43,23 @@ class _LoginState extends State<Login> {
         barrierDismissible: false,
       );
     }
-      UserCredential user = await _auth.signInWithEmailAndPassword(
-          email: email!, password: pass!);
+    UserCredential user = await _auth
+        .signInWithEmailAndPassword(email: email!, password: pass!)
+        .catchError((e) {
+      Fluttertoast.showToast(
+          msg: "Email hoặc mật khẩu của bạn không đúng!",
+          toastLength: Toast.LENGTH_LONG,
+          gravity: ToastGravity.BOTTOM,
+          backgroundColor: Colors.redAccent,
+          textColor: Colors.white,
+          fontSize: 16.0);
+    });
+    if (user != null) {
+      
       Navigator.pop(context);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => Bottom_Navigator()));
-
+    }
   }
 
   @override
@@ -191,11 +208,14 @@ class _LoginState extends State<Login> {
                     alignment: AlignmentDirectional.centerEnd,
                     child: Padding(
                       padding: const EdgeInsets.fromLTRB(0, 5, 0, 0),
-                      child: InkWell(child: Text(
-                        'Forgot password?',
-                        style: TextStyle(fontSize: 15, color: Colors.blue),
-                      ),
-                      onTap: ()=>Navigator.of(context).push(MaterialPageRoute(builder: (context)=> ForgotPass())),
+                      child: InkWell(
+                        child: Text(
+                          'Forgot password?',
+                          style: TextStyle(fontSize: 15, color: Colors.blue),
+                        ),
+                        onTap: () => Navigator.of(context).push(
+                            MaterialPageRoute(
+                                builder: (context) => ForgotPass())),
                       ),
                     ),
                   ),
@@ -283,12 +303,31 @@ class _LoginState extends State<Login> {
                                       Border.all(color: Colors.black, width: 1),
                                   shape: BoxShape.circle),
                               child: GestureDetector(
-                                child: Image.asset(
-                                  'images/google_icon.png',
-                                  fit: BoxFit.contain,
-                                ),
-                                onTap: () => print(''),
-                              )),
+                                  child: Image.asset(
+                                    'images/google_icon.png',
+                                    fit: BoxFit.contain,
+                                  ),
+                                  onTap: () async {
+                                    setState(() {
+                                      _isSigningIn = true;
+                                    });
+                                    User? user =
+                                        await Authentication.signInWithGoogle(
+                                            context: context);
+                                    setState(() {
+                                      _isSigningIn = false;
+                                    });
+                                    if (user != null) {
+                                      Navigator.pushReplacement(
+                                        context,
+                                        MaterialPageRoute(
+                                          builder: (context) =>
+                                              Bottom_Navigator(),
+                                        ),
+                                      );
+                                    }
+                                    ;
+                                  }))
                         ],
                       ),
                     ),

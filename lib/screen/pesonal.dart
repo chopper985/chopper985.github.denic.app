@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_dental_clinic_app/screen/login_screen.dart';
-import 'package:flutter_dental_clinic_app/screen/text.dart';
+import 'package:flutter_dental_clinic_app/screen/inforPersonal_screen.dart';
 import 'package:flutter_dental_clinic_app/widget/profile_menu_widget.dart';
 import 'package:line_awesome_icons/line_awesome_icons.dart';
 
@@ -65,22 +65,22 @@ class _PersonalState extends State<Personal> {
         ProfieMenu(
           iconProfile: LineAwesomeIcons.user,
           titleProfile: 'Thông tin tài khoản',
-          layout: Test,
+          layout: InforPersonal(),
         ),
-        ProfieMenu(iconProfile: LineAwesomeIcons.gift, titleProfile: 'Rewards',layout: Test,),
+        ProfieMenu(iconProfile: LineAwesomeIcons.gift, titleProfile: 'Rewards',layout: InforPersonal(),),
         ProfieMenu(
             iconProfile: LineAwesomeIcons.history,
-            titleProfile: 'Lịch sử khám',layout: Test,),
+            titleProfile: 'Lịch sử khám',layout: InforPersonal,),
         ProfieMenu(
-            iconProfile: LineAwesomeIcons.lock, titleProfile: 'Đổi mật khẩu',layout: Test,),
+            iconProfile: LineAwesomeIcons.lock, titleProfile: 'Đổi mật khẩu',layout: InforPersonal(),),
         ProfieMenu(
             iconProfile: LineAwesomeIcons.info_circle,
-            titleProfile: 'Thông tin hổ trợ khách hàng',layout: Test,),
+            titleProfile: 'Thông tin hổ trợ khách hàng',layout: InforPersonal(),),
         ProfieMenu(
             iconProfile: LineAwesomeIcons.globe,
-            titleProfile: 'Các chi nhánh phòng khám',layout:Test),
+            titleProfile: 'Các chi nhánh phòng khám',layout:InforPersonal()),
         ProfieMenu(
-            iconProfile: LineAwesomeIcons.sign_out, titleProfile: 'Đăng xuất',layout:Login)
+            iconProfile: LineAwesomeIcons.sign_out, titleProfile: 'Đăng xuất',layout:Login())
       ],
     );
   }
