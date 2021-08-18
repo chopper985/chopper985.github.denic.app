@@ -35,10 +35,11 @@ class _RegisterState extends State<Register> {
       final _auth = FirebaseAuth.instance;
       UserCredential user = await _auth.createUserWithEmailAndPassword(
           email: email!, password: pass!);
-
-      Navigator.pop(context);
-      Navigator.of(context)
-          .push(MaterialPageRoute(builder: (context) => Login()));
+      if (user != null) {
+        Navigator.pop(context);
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => Login()));
+      }
     }
   }
 

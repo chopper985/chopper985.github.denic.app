@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dental_clinic_app/controller/sign_in_facebook.dart';
 import 'package:flutter_dental_clinic_app/controller/sign_in_google.dart';
 import 'package:flutter_dental_clinic_app/screen/forgot_pass_screen.dart';
 import 'package:flutter_dental_clinic_app/screen/home_screen.dart';
@@ -55,7 +56,6 @@ class _LoginState extends State<Login> {
           fontSize: 16.0);
     });
     if (user != null) {
-      
       Navigator.pop(context);
       Navigator.of(context)
           .push(MaterialPageRoute(builder: (context) => Bottom_Navigator()));
@@ -291,7 +291,17 @@ class _LoginState extends State<Login> {
                                   color: Colors.blue,
                                   size: 62,
                                 ),
-                                onTap: () => print(''),
+                                onTap: () async {
+                                  User? user =
+                                      await AuthenFacebook.loginWithFacebook(
+                                          context: context);
+                                  if (user != null) {
+                                    Navigator.of(context).pushReplacement(
+                                        MaterialPageRoute(
+                                            builder: (context) =>
+                                                Bottom_Navigator()));
+                                  }
+                                },
                               )),
                           SizedBox(
                             width: 20,

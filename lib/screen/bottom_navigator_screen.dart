@@ -1,12 +1,13 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dental_clinic_app/screen/book_screen.dart';
 import 'package:flutter_dental_clinic_app/screen/forgot_pass_screen.dart';
 import 'package:flutter_dental_clinic_app/screen/home_screen.dart';
 import 'package:flutter_dental_clinic_app/screen/pesonal.dart';
 import 'package:flutter_dental_clinic_app/screen/register_screen.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
-import 'calendar.dart';
+import 'appointment_schedule_screen.dart';
 import 'login_screen.dart';
 
 class Bottom_Navigator extends StatefulWidget {
@@ -17,21 +18,18 @@ class Bottom_Navigator extends StatefulWidget {
 }
 
 class _Bottom_NavigatorState extends State<Bottom_Navigator> {
-
-
   int current_index = 0;
-  final tabs = [Home(), Calendar(), Personal()];
+  final tabs = [Calendar(), Home(),Book(), Personal() ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
-      body: Container(     
+      body: Container(
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.only(top: 32),
-              height: 100,
+              padding: EdgeInsets.only(top: 44),
+              height: 120,
               child: Image.asset(
                 'images/logo_nhakhoa_icon.png',
                 height: 80,
@@ -51,24 +49,32 @@ class _Bottom_NavigatorState extends State<Bottom_Navigator> {
           elevation: 10,
           items: [
             BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: Colors.black,
-                  size: 25,
-                ),
-                title: Text('Trang Chủ'),
-                backgroundColor: Colors.blue),
-            BottomNavigationBarItem(
                 backgroundColor: Colors.blue,
                 icon: Icon(
                   Icons.calendar_today,
                   color: Colors.black,
                   size: 25,
                 ),
-                title: Text('Lịch hẹn')),
+                label: 'Lịch hẹn'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: Colors.black,
+                  size: 25,
+                ),
+                label: 'Trang Chủ',
+                backgroundColor: Colors.blue),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.book_online,
+                  color: Colors.black,
+                  size: 25,
+                ),
+                label: 'Đặt lịch',
+                backgroundColor: Colors.blue),
             BottomNavigationBarItem(
               icon: Icon(Icons.account_box, color: Colors.black, size: 25),
-              title: Text('Cá Nhân'),
+              label: 'Cá Nhân',
               backgroundColor: Colors.blue,
             )
           ],

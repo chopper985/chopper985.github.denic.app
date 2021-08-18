@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Dental Clinic App</string>
+    <!--Bạn copy hai dòng đầu tiên dán vào đây-->
+    <!--Ví dụ-->
+    <string name="facebook_app_id">857109024917969</string> 
+    <string name="fb_login_protocol_scheme">fb857109024917969</string>
+
+</resources>

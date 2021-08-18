@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_dental_clinic_app/screen/change_password_screen.dart';
 import 'package:flutter_dental_clinic_app/screen/login_screen.dart';
 import 'package:flutter_dental_clinic_app/screen/inforPersonal_screen.dart';
 import 'package:flutter_dental_clinic_app/widget/profile_menu_widget.dart';
@@ -18,16 +19,13 @@ class _PersonalState extends State<Personal> {
       children: [
         Container(
           height: 80,
-          padding: EdgeInsets.fromLTRB(24, 20, 8, 8),
+          padding: EdgeInsets.fromLTRB(24, 8, 8, 8),
           child: Row(
             children: [
-              Container(
-                  height: 61,
-                  child: Image.asset(
-                    'images/avatar_dental_icon.png',
-                    width: 50,
-                    fit: BoxFit.contain,
-                  )),
+              CircleAvatar(
+                radius: 32,
+                backgroundImage: AssetImage('images/chopper.jpg'),  
+              ),
               SizedBox(
                 width: 10,
               ),
@@ -45,7 +43,7 @@ class _PersonalState extends State<Personal> {
                   ),
                   SizedBox(height: 12),
                   InkWell(
-                    onTap: () => print('AA'),
+                    onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => InforPersonal())),
                     child: RichText(
                         text: TextSpan(children: [
                       TextSpan(
@@ -70,9 +68,9 @@ class _PersonalState extends State<Personal> {
         ProfieMenu(iconProfile: LineAwesomeIcons.gift, titleProfile: 'Rewards',layout: InforPersonal(),),
         ProfieMenu(
             iconProfile: LineAwesomeIcons.history,
-            titleProfile: 'Lịch sử khám',layout: InforPersonal,),
+            titleProfile: 'Lịch sử khám',layout: InforPersonal(),),
         ProfieMenu(
-            iconProfile: LineAwesomeIcons.lock, titleProfile: 'Đổi mật khẩu',layout: InforPersonal(),),
+            iconProfile: LineAwesomeIcons.lock, titleProfile: 'Đổi mật khẩu',layout: ChangePass(),),
         ProfieMenu(
             iconProfile: LineAwesomeIcons.info_circle,
             titleProfile: 'Thông tin hổ trợ khách hàng',layout: InforPersonal(),),

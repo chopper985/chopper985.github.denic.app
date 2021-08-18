@@ -35,6 +35,7 @@ dependencies:
   google_sign_in: ^4.5.3
   fluttertoast: ^8.0.8
   firebase_messaging: ^10.0.4
+  flutter_facebook_login: ^3.0.0
 
 
 
@@ -78,7 +79,10 @@ flutter:
     - images/google_icon.png
     - images/splash.png
     - images/avatar_dental_icon.png
-
+    - images/chopper.jpg
+    - images/bell.png
+    - images/sex.png
+    - images/age.png
 
   # To add assets to your application, add an assets section, like this:
   # assets:
